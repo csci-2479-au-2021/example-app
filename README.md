@@ -1,5 +1,7 @@
 # CSCI 2479 Example App
 
+## New section for demo purposes
+
 ## Intro
 This is an example Laravel application that is used in our lecture/demo sessions every week. It is based on the same Laravel Sail/Laravel Breeze setup that we use as a skeleton for the group projects, and is where you can find examples of how to do various things.
 
