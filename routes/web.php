@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,8 @@ Route::get('/phpinfo', [HomeController::class, 'phpinfo']);
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])
     ->middleware(['auth'])->name('dashboard');
+
+Route::get('/pets', [PetController::class, 'index'])
+    ->middleware(['auth'])->name('viewPets');
 
 require __DIR__.'/auth.php';
