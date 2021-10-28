@@ -22,7 +22,14 @@ Route::get('/phpinfo', [HomeController::class, 'phpinfo']);
 Route::get('/dashboard', [HomeController::class, 'dashboard'])
     ->middleware(['auth'])->name('dashboard');
 
-Route::get('/pets', [PetController::class, 'index'])
-    ->middleware(['auth'])->name('viewPets');
+Route::prefix('/pets')->middleware(['auth'])->group(function() {
+    Route::get('/', [PetController::class, 'index'])->name('viewPets');
+    Route::get('/create', [PetController::class, 'create'])->name('viewForm');
+    Route::post('/store', [PetController::class, 'store']);
+    Route::put('/store', [PetController::class, 'update']);
+    Route::get('/edit/{id}', [PetController::class, 'edit'])->name('editForm');
+});
+
+
 
 require __DIR__.'/auth.php';

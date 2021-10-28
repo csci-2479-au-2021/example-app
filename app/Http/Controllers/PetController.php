@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Services\PetService;
+use App\Http\Requests\StorePetRequest;
 
 class PetController extends Controller
 {
@@ -33,7 +34,10 @@ class PetController extends Controller
      */
     public function create()
     {
-        //
+        return view('petform', [
+            'pet' => null,
+            'petTypes' => $this->petService->getPetTypes()
+        ]);
     }
 
     /**
@@ -42,9 +46,15 @@ class PetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePetRequest $request)
     {
-        //
+        // validate form input
+        $validatedInput = $request->validated();
+        // call petService::savePet(name, typeId)
+        // this should return the pet with its auto-generated PK
+        $pet = $this->petService->savePet($validatedInput['name'], $validatedInput['type']);
+
+        return redirect()->route('viewPets');
     }
 
     /**
@@ -64,9 +74,14 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pet $pet)
+    public function edit(int $id)
     {
-        //
+        $pet = $this->petService->getPetById($id);
+
+        return view('petform', [
+            'pet' => $pet,
+            'petTypes' => $this->petService->getPetTypes()
+        ]);
     }
 
     /**
@@ -76,9 +91,17 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pet $pet)
+    public function update(StorePetRequest $request)
     {
-        //
+        $validatedInput = $request->validated();
+
+        $pet = $this->petService->updatePet(
+            $validatedInput['id'],
+            $validatedInput['name'],
+            $validatedInput['type']
+        );
+
+        return redirect()->route('viewPets');
     }
 
     /**
