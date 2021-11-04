@@ -1,3 +1,15 @@
+import * as fns from './functions';
+import Alpine from 'alpinejs';
+
+declare global {
+    interface Window {
+        _: any;
+        axios: any;
+        petApp: any;
+        Alpine: any;
+    }
+}
+
 window._ = require('lodash');
 
 /**
@@ -7,8 +19,13 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// alpinejs
+window.Alpine = Alpine;
+
+// our app
+window.petApp = fns;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -26,3 +43,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+// init alpline
+Alpine.start();
+
+export {
+    Alpine
+};
