@@ -11,6 +11,11 @@ class PetPolicy
     use HandlesAuthorization;
 
     /**
+     * TODO: use a role/permission from the database for this
+     */
+    private const ADMIN_USERNAME = 'andrew';
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
@@ -18,7 +23,7 @@ class PetPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +35,7 @@ class PetPolicy
      */
     public function view(User $user, Pet $pet)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +46,7 @@ class PetPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->name === self::ADMIN_USERNAME;
     }
 
     /**
@@ -53,7 +58,7 @@ class PetPolicy
      */
     public function update(User $user, Pet $pet)
     {
-        //
+        return $user->name === self::ADMIN_USERNAME;
     }
 
     /**
@@ -65,7 +70,7 @@ class PetPolicy
      */
     public function delete(User $user, Pet $pet)
     {
-        //
+        return $user->name === self::ADMIN_USERNAME;
     }
 
     /**
@@ -77,7 +82,7 @@ class PetPolicy
      */
     public function restore(User $user, Pet $pet)
     {
-        //
+        return $user->name === self::ADMIN_USERNAME;
     }
 
     /**
@@ -89,6 +94,6 @@ class PetPolicy
      */
     public function forceDelete(User $user, Pet $pet)
     {
-        //
+        return $user->name === self::ADMIN_USERNAME;
     }
 }

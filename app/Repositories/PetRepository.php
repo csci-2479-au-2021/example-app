@@ -50,4 +50,8 @@ class PetRepository
 
         return $pet;
     }
+
+    public function deletePet(int$id): int {
+        return Pet::destroy($id);
+    }
 }

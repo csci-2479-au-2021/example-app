@@ -36,4 +36,9 @@ class PetService
     {
         return $this->petRepository->updatePet($id, $name, $typeId);
     }
+
+    public function deletePet(int $id): int
+    {
+        return $this->petRepository->deletePet($id);
+    }
 }

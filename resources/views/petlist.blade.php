@@ -8,15 +8,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div x-data="petApp.initPets()"
+                <div x-data="petlist"
                      class="p-6 bg-white border-b border-gray-200">
-                    <a href="{{route('viewForm')}}">Add a pet</a>
+                    <a href="{{route('viewForm')}}">Add a pet to the list</a>
                     <ul>My pets:
                         @foreach($pets as $pet)
-                            <li x-data="{ petName: '{{$pet->name}}' }"
-                                x-init="addPet(petName)">
+                            <li x-data="{ petName: '{{$pet->name}}'}"
+                                x-init="addPet(petName)"
+                                x-show="!isPetDeleted(petName)">
                                 {{$pet->name}} - {{$pet->petType->name}} |
-                                <a href="/pets/edit/{{$pet->id}}">Edit</a>
+                                <a href="/pets/edit/{{$pet->id}}">Edit</a> |
+                                <button @click="confirmDelete(petName, {{$pet->id}})"
+                                   type="button">Delete</button> |
                                 <label>
                                     <input
                                         type="checkbox"

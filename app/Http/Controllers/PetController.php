@@ -34,6 +34,8 @@ class PetController extends Controller
      */
     public function create()
     {
+        $this->authorize('access-pets-create');
+
         return view('petform', [
             'pet' => null,
             'petTypes' => $this->petService->getPetTypes()
@@ -48,6 +50,8 @@ class PetController extends Controller
      */
     public function store(StorePetRequest $request)
     {
+        $this->authorize('create', Pet::class);
+
         // validate form input
         $validatedInput = $request->validated();
         // call petService::savePet(name, typeId)
@@ -110,8 +114,12 @@ class PetController extends Controller
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pet $pet)
+    public function destroy(int $id)
     {
-        //
+        $data = [
+            'records_deleted' => $this->petService->deletePet($id)
+        ];
+
+        return response()->json($data);
     }
 }

@@ -30,6 +30,4 @@ Route::prefix('/pets')->middleware(['auth'])->group(function() {
     Route::get('/edit/{id}', [PetController::class, 'edit'])->name('editForm');
 });
 
-
-
 require __DIR__.'/auth.php';

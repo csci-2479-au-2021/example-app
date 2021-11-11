@@ -25,7 +25,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Alpine = Alpine;
 
 // our app
-window.petApp = fns;
+fns.initPets();
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
